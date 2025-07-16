@@ -22,7 +22,7 @@ export function Section({ title, href, icon = 'recent', children, className = ''
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true, amount: 0.2 }}
       className={`rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-6 shadow-sm ${className}`}
