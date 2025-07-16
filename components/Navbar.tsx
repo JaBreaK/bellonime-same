@@ -66,7 +66,14 @@ export default function Navbar() {
     { href: '/notifications', label: 'Notifs', icon: <Bell size={20} />, badge: 9 },
   ];
 
-  const renderItem = (item: any, isActive: boolean, compact = false) => (
+  type NavItem = {
+    href: string;
+    label: string;
+    icon: React.ReactNode;
+    badge?: number;
+  };
+
+  const renderItem = (item: NavItem, isActive: boolean, compact = false) => (
     <Link
       key={item.href}
       href={item.href}
