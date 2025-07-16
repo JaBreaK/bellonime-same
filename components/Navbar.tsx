@@ -124,7 +124,7 @@ if (isMobile) {
             <motion.div
                 layout
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="flex items-center bg-[##161616] px-3 py-2 rounded-full shadow-lg shadow-pink-500/20 backdrop-blur-lg border border-white/10 space-x-2"
+                className="flex items-center bg-[#161616] px-3 py-2 rounded-full shadow-lg shadow-pink-500/20 backdrop-blur-lg border border-white/10 space-x-2"
             >
                 {mainNavItems.map((item) => renderItem(item, pathname === item.href, true))}
 
@@ -180,7 +180,7 @@ if (isMobile) {
       <motion.div
         layout
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`flex items-center px-6 py-2 bg-[##161616]/80 border border-white/10 backdrop-blur-md shadow-lg shadow-pink-500/10 space-x-4 rounded-full ${
+        className={`flex items-center px-6 py-2 bg-[#161616]/80 border border-white/10 backdrop-blur-md shadow-lg shadow-pink-500/10 space-x-4 rounded-full ${
           showModal ? 'w-auto max-w-5xl' : hidden ? 'w-[160px]' : 'max-w-xl'
         }`}
       >
