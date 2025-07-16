@@ -1,0 +1,25 @@
+import { API_BASE_URL } from '@/lib/config';
+import type { ApiResponse, Batch } from '@/types/anime';
+
+/**
+ * Mengambil data anime batch, bisa berdasarkan halaman.
+ * @param page Nomor halaman yang ingin diambil (opsional).
+ */
+export async function getBatchData(page?: number): Promise<Batch> {
+  const url = new URL(`${API_BASE_URL}/samehadaku/batch`);
+
+  if (page) {
+    url.searchParams.append('page', page.toString());
+  }
+
+  const response = await fetch(url.toString(), {
+    next: { revalidate: 86400 }, // Cukup revalidasi sekali sehari
+  });
+
+  if (!response.ok) {
+    throw new Error('Gagal mengambil data anime batch');
+  }
+
+  const result: ApiResponse<Batch> = await response.json();
+  return result.data;
+}
