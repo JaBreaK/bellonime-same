@@ -15,7 +15,7 @@ import {
   Moon,
   ChevronRight,
   ChevronLeft,
-  X
+  
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
