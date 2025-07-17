@@ -5,7 +5,7 @@ import type { ApiResponse, Ongoing } from '@/types/anime';
  * Mengambil data anime ongoing, bisa berdasarkan halaman.
  * @param page Nomor halaman yang ingin diambil (opsional).
  */
-export async function getOngoingData(page?: number): Promise<Ongoing> {
+export async function getOngoingData(page?: number): Promise<ApiResponse<Ongoing>> {
   const url = new URL(`${API_BASE_URL}/samehadaku/ongoing`);
   if (page) {
     url.searchParams.append('page', page.toString());
@@ -19,6 +19,5 @@ export async function getOngoingData(page?: number): Promise<Ongoing> {
     throw new Error('Gagal mengambil data anime ongoing');
   }
 
-  const result: ApiResponse<Ongoing> = await response.json();
-  return result.data;
+  return response.json();
 }

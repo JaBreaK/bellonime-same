@@ -1,32 +1,42 @@
-import AnimeCard from '@/components/AnimeCard';
 import MovieCard from '@/components/MovieCard';
 import { getOngoingData, getHomeData, getGenresData } from '@/lib/services';
 import { Suspense } from 'react';
 import SlickCarousel from '@/components/SlickCarousel';
 import GenreScroller from '@/components/GenreScroller';
+import TabbedAnimeSection from '@/components/TabbedAnimeSection';
+import Breadcrumb from '@/components/Breadcrumb';
+import Link from 'next/link';
 
 export default async function HomePage() {
-  let ongoing, home, genres;
-  try {
-    ongoing = await getOngoingData();
-    home = await getHomeData();
-    genres = await getGenresData();
-  } catch (error) {
-    console.error('Gagal ambil data ongoing:', error);
-    return (
-      <div className="p-6 text-center text-red-500">
-        Gagal mengambil data anime. Silakan coba lagi nanti.
-      </div>
-    );
+const [ongoingResult, homeResult, genresResult] = await Promise.allSettled([
+    getOngoingData(),
+    getHomeData(),
+    getGenresData(),
+  ]);
+
+  // Cek hasil masing-masing dan tangani error
+  if (ongoingResult.status === 'rejected') {
+    console.error('Gagal ambil data ongoing:', ongoingResult.reason);
+    // Tampilkan pesan error atau fallback UI
+  }
+  if (homeResult.status === 'rejected') {
+    console.error('Gagal ambil data home:', homeResult.reason);
+  }
+  if (genresResult.status === 'rejected') {
+    console.error('Gagal ambil data genres:', genresResult.reason);
   }
 
-  const ongoingAnime = ongoing.animeList ?? [];
-  const genresAnime = genres.genreList ?? [];
+  // Ambil data jika berhasil, atau sediakan nilai default
+  const ongoingAnime = ongoingResult.status === 'fulfilled' ? ongoingResult.value.data.animeList : [];
+  const home = homeResult.status === 'fulfilled' ? homeResult.value : null;
+  const genresAnime = genresResult.status === 'fulfilled' ? genresResult.value.genreList : [];
+  
 
   return (
     <main className="min-h-screen py-6 px-2 md:px-4">
+      <Breadcrumb  />
       {/* Carousel */}
-      <section className="mb-8 bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-md shadow-md">
+      <section className="mb-2  bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-2 backdrop-blur-md shadow-md">
         {ongoingAnime.length > 0 && (
           <div className="max-w-[2160px] mx-auto px-2">
             <SlickCarousel animes={ongoingAnime} />
@@ -36,7 +46,7 @@ export default async function HomePage() {
 
       {/* Genre */}
       {genresAnime.length > 0 && (
-        <section className="mb-8 bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-md shadow-md">
+        <section className="mb-2 bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-2 backdrop-blur-md shadow-md">
           <GenreScroller genres={genresAnime} />
         </section>
       )}
@@ -46,32 +56,17 @@ export default async function HomePage() {
         {/* Konten Kiri */}
         <div className="space-y-10">
           {/* Rilisan Terbaru */}
-          <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-xl shadow-md">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground">Terbaru</h2>
-              <a href="/anime/ongoing" className="text-sm text-primary hover:underline">
-                Lihat Semua
-              </a>
-            </div>
-
-            <Suspense fallback={<div>Loading anime...</div>}>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
-                {home?.recent.animeList.map((anime) => (
-                  <AnimeCard key={anime.animeId} anime={anime} />
-                ))}
-              </div>
-            </Suspense>
-          </section>
+          <TabbedAnimeSection />
         </div>
 
         {/* Sidebar Movie */}
         <aside className="space-y-4">
-          <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-md shadow-md">
+          <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-2 backdrop-blur-md shadow-md">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg sm:text-xl font-semibold text-foreground">Movie</h2>
-              <a href="/anime/movie" className="text-sm text-primary hover:underline">
+              <Link href="/anime/movie" className="text-sm text-primary hover:underline">
                 Lihat Semua
-              </a>
+              </Link>
             </div>
 
             <Suspense fallback={<div>Loading anime...</div>}>

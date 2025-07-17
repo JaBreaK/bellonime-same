@@ -18,7 +18,7 @@ const PaginationControls: FC<PaginationControlsProps> = ({ pagination }) => {
     return null; // Jangan tampilkan apa-apa jika hanya ada 1 halaman atau kurang
   }
 
-  const { currentPage, hasNextPage, hasPreviousPage } = pagination;
+  const { currentPage, hasNextPage, hasPrevPage } = pagination;
   const pageNumbers = generatePaginationNumbers(pagination);
 
   const handlePageChange = (page: number) => {
@@ -32,7 +32,7 @@ const PaginationControls: FC<PaginationControlsProps> = ({ pagination }) => {
       {/* Tombol Previous */}
       <button
         onClick={() => handlePageChange(currentPage - 1)}
-        disabled={!hasPreviousPage}
+        disabled={!hasPrevPage}
         className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Prev

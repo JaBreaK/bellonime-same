@@ -5,7 +5,7 @@ import type { ApiResponse, Batch } from '@/types/anime';
  * Mengambil data anime batch, bisa berdasarkan halaman.
  * @param page Nomor halaman yang ingin diambil (opsional).
  */
-export async function getBatchData(page?: number): Promise<Batch> {
+export async function getBatchData(page?: number): Promise<ApiResponse<Batch>> {
   const url = new URL(`${API_BASE_URL}/samehadaku/batch`);
 
   if (page) {
@@ -20,6 +20,5 @@ export async function getBatchData(page?: number): Promise<Batch> {
     throw new Error('Gagal mengambil data anime batch');
   }
 
-  const result: ApiResponse<Batch> = await response.json();
-  return result.data;
+  return response.json();
 }

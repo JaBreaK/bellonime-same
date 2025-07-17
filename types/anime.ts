@@ -15,7 +15,7 @@ export interface ApiResponse<T> {
  
 export interface Pagination {
   currentPage: number;
-  hasPreviousPage: boolean;
+  hasPrevPage: boolean;
   prevPage: number | null;
   hasNextPage: boolean;
   nextPage: number | null;

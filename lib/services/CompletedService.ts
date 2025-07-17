@@ -5,7 +5,7 @@ import type { ApiResponse, Completed } from '@/types/anime';
  * Mengambil data anime yang telah selesai, bisa berdasarkan halaman.
  * @param page Nomor halaman yang ingin diambil (opsional).
  */
-export async function getCompletedData(page?: number): Promise<Completed> {
+export async function getCompletedData(page?: number): Promise<ApiResponse<Completed>> {
   const url = new URL(`${API_BASE_URL}/samehadaku/completed`);
 
   if (page) {
@@ -20,6 +20,5 @@ export async function getCompletedData(page?: number): Promise<Completed> {
     throw new Error('Gagal mengambil data anime yang telah selesai');
   }
 
-  const result: ApiResponse<Completed> = await response.json();
-  return result.data;
+return response.json();
 }

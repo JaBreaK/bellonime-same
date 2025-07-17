@@ -5,7 +5,7 @@ import type { ApiResponse, Popular } from '@/types/anime';
  * Mengambil data anime populer, bisa berdasarkan halaman.
  * @param page Nomor halaman yang ingin diambil (opsional).
  */
-export async function getPopularData(page?: number): Promise<Popular> {
+export async function getPopularData(page?: number): Promise<ApiResponse<Popular>> {
   // Tambahkan parameter 'page' ke URL jika ada
   const url = new URL(`${API_BASE_URL}/samehadaku/popular`);
   if (page) {
@@ -20,6 +20,6 @@ export async function getPopularData(page?: number): Promise<Popular> {
     throw new Error('Gagal mengambil data anime populer');
   }
 
-  const result: ApiResponse<Popular> = await response.json();
-  return result.data;
+
+   return response.json(); 
 }
