@@ -1,47 +1,24 @@
-/* src/app/globals.css */
+/* src/app/globals.css */@import "slick-carousel/slick/slick.css";
 @import "tailwindcss";
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* globals.css */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Supaya carousel smooth & overflow hidden */
+.slick-track {
+  /* Memberi ruang atas-bawah agar kartu yang membesar tidak kepotong */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-
-
-.ripple {
-  position: relative;
-  overflow: hidden;
+.slick-slide .group {
+  /* Transisi untuk semua animasi */
+  transition: all 0.4s ease-in-out;
+  
+  /* Style default untuk slide samping (kecil, redup) */
+  transform: scale(0.85);
+  opacity: 0.6;
 }
 
-.ripple::after {
-  content: "";
-  position: absolute;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.3);
-  width: 100%;
-  padding-top: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  animation: ripple-anim 0.6s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes ripple-anim {
-  to {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
-  }
+/* Style khusus untuk slide yang di TENGAH */
+.slick-center .group {
+  transform: scale(1.1); /* Sedikit lebih besar dari normal untuk efek pop-out */
+  opacity: 1;
 }

@@ -1,64 +1,89 @@
-import { getHomeData, getOngoingData } from '@/lib/services';
-import Carousel3D from '@/components/Carousel3D';
 import AnimeCard from '@/components/AnimeCard';
-import { Section } from '@/components/Section';
+import MovieCard from '@/components/MovieCard';
+import { getOngoingData, getHomeData, getGenresData } from '@/lib/services';
 import { Suspense } from 'react';
-import SidebarMovie from '@/components/SidebarMovie';
-
+import SlickCarousel from '@/components/SlickCarousel';
+import GenreScroller from '@/components/GenreScroller';
 
 export default async function HomePage() {
-  const homeData = await getHomeData();
-  const ongoingData = await getOngoingData();
+  let ongoing, home, genres;
+  try {
+    ongoing = await getOngoingData();
+    home = await getHomeData();
+    genres = await getGenresData();
+  } catch (error) {
+    console.error('Gagal ambil data ongoing:', error);
+    return (
+      <div className="p-6 text-center text-red-500">
+        Gagal mengambil data anime. Silakan coba lagi nanti.
+      </div>
+    );
+  }
+
+  const ongoingAnime = ongoing.animeList ?? [];
+  const genresAnime = genres.genreList ?? [];
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-8">
-      <Carousel3D animeList={ongoingData.animeList} />
+    <main className="min-h-screen py-6 px-2 md:px-4">
+      {/* Carousel */}
+      <section className="mb-8 bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-md shadow-md">
+        {ongoingAnime.length > 0 && (
+          <div className="max-w-[2160px] mx-auto px-2">
+            <SlickCarousel animes={ongoingAnime} />
+          </div>
+        )}
+      </section>
 
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Main content */}
-        <div className="flex-1 space-y-6">
-          <Section title="Rilisan Terbaru" href={homeData.recent.href} icon="recent">
-            <Suspense fallback={<LoadingGrid />}>
-              <AnimeGrid data={homeData.recent.animeList} />
-            </Suspense>
-          </Section>
+      {/* Genre */}
+      {genresAnime.length > 0 && (
+        <section className="mb-8 bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-md shadow-md">
+          <GenreScroller genres={genresAnime} />
+        </section>
+      )}
 
-          <Section title="Batch Lengkap" href={homeData.batch.href} icon="batch">
-            {homeData.batch.batchList.length === 0 && (
-              <div className="text-gray-500 dark:text-gray-300 italic">
-                Belum ada data batch.
+      {/* Main Grid */}
+      <div className="max-w-[1440px] mx-auto px-2 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+        {/* Konten Kiri */}
+        <div className="space-y-10">
+          {/* Rilisan Terbaru */}
+          <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-xl shadow-md">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground">Terbaru</h2>
+              <a href="/anime/ongoing" className="text-sm text-primary hover:underline">
+                Lihat Semua
+              </a>
+            </div>
+
+            <Suspense fallback={<div>Loading anime...</div>}>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
+                {home?.recent.animeList.map((anime) => (
+                  <AnimeCard key={anime.animeId} anime={anime} />
+                ))}
               </div>
-            )}
-          </Section>
+            </Suspense>
+          </section>
         </div>
 
-        {/* Sidebar */}
-        <SidebarMovie data={homeData.movie.animeList} href={homeData.movie.href} />
+        {/* Sidebar Movie */}
+        <aside className="space-y-4">
+          <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-md shadow-md">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground">Movie</h2>
+              <a href="/anime/movie" className="text-sm text-primary hover:underline">
+                Lihat Semua
+              </a>
+            </div>
+
+            <Suspense fallback={<div>Loading anime...</div>}>
+              <div className="space-y-3">
+                {home?.movie.animeList.slice(0, 8).map((anime) => (
+                  <MovieCard key={anime.animeId} anime={anime} />
+                ))}
+              </div>
+            </Suspense>
+          </section>
+        </aside>
       </div>
     </main>
-  );
-}
-function AnimeGrid({ data }: { data: any[] }) {
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6 gap-4">
-      {data.map((anime) => (
-        <AnimeCard
-          key={anime.animeId}
-          animeId={anime.animeId}
-          poster={anime.poster}
-          title={anime.title}
-          episodes={anime.episodes}
-        />
-      ))}
-    </div>
-  );
-}
-function LoadingGrid() {
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-4 animate-pulse">
-      {Array.from({ length: 6 }).map((_, idx) => (
-        <div key={idx} className="w-full aspect-[2/3] bg-gray-300/30 dark:bg-gray-700/30 rounded-md" />
-      ))}
-    </div>
   );
 }

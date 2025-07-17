@@ -2,6 +2,8 @@
 // types/anime.ts
 // Definisikan tipe data untuk Anime sesuai dengan struktur API Bellonime
 
+
+
 export interface ApiResponse<T> {
   statusCode: number;
   statusMessage: string;
@@ -20,19 +22,29 @@ export interface Pagination {
   totalPages: number;
 }
 
+export interface Anime {
+    title: string;
+    poster: string;
+    episodes: string;
+    releasedOn: string;
+    animeId: string;
+    href: string;
+    samehadakuUrl: string;
+    genreList: Genres [];
+    type: string;
+    score: string;
+    estimation: string;
+    genres:string [];
+    status: string;
+
+}
+
+
 export interface Home {
     recent: {
         href: string;
         samehadakuUrl: string;
-        animeList: {
-            title: string;
-            poster: string;
-            episodes: string;
-            releasedOn: string;
-            animeId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
+        animeList: Anime [];
     };
     batch: {
         href: string;
@@ -44,20 +56,7 @@ export interface Home {
     movie: {
         href: string;
         samehadakuUrl: string;
-        animeList: {
-            title: string;
-            poster: string;
-            releasedOn: string;
-            animeId: string;
-            href: string;
-            samehadakuUrl: string;
-            genreList: {
-                title: string;
-                genreId: string;
-                href: string;
-                samehadakuUrl: string;
-            } [];
-        }[];
+        animeList: Anime[];
     }
 }
 
@@ -70,126 +69,45 @@ export interface Genres {
     }[];
 }
 
-export interface Anime {
+export interface GenresLink {
+        title: string;
+        genreId: string;
+        href: string;
+        samehadakuUrl: string;
+}
+
+export interface AnimeList {
     list: {
         startwith: string;
-        animeList: {
-            title: string;
-            animeId: string;
-            href: string;
-            samehadakuUrl: string;
-        } [];
+        animeList: Anime [];
     } [];
 }
 
 export interface Schedule {
     days: {
         day: string;
-        animeList: {
-            title: string;
-            poster: string;
-            type: string;
-            score: string;
-            estimation: string;
-            genres:string [];
-            animeId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
+        animeList: Anime[];
     }[];
 }
 
 export interface Recent {
-    animeList: {
-        title: string;
-        poster: string;
-        episodes: string;
-        releasedOn: string;
-        animeId: string;
-        href: string;
-        samehadakuUrl: string;
-        pagination: Pagination | null;
-    }[];
+    animeList: Anime [];
 }
 
 export interface Ongoing {
-    animeList: {
-        title: string;
-        poster: string;
-        type: string;
-        score: string;
-        status: string;
-        animeId: string;
-        href: string;
-        samehadakuUrl: string;
-        genreList: {
-            title: string;
-            genreId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
-    }[];
-    pagination: Pagination | null;
+    animeList: Anime [] ;
 }
 
 export interface Completed {
-    animeList: {
-        title: string;
-        poster: string;
-        type: string;
-        score: string;
-        status: string;
-        animeId: string;
-        href: string;
-        samehadakuUrl: string;
-        genreList: {
-            title: string;
-            genreId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
-    }[];
-    pagination: Pagination | null;
+    animeList: Anime [];
 }
 
 export interface Popular {
-    animeList: {
-        title: string;
-        poster: string;
-        type: string;
-        score: string;
-        status: string;
-        animeId: string;
-        href: string;
-        samehadakuUrl: string;
-        genreList: {
-            title: string;
-            genreId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
-    }[];
-    pagination: Pagination | null;
+    animeList: Anime [] ;
 }
 
 export interface Movies {
-    animeList: {
-        title: string;
-        poster: string;
-        type: string;
-        score: string;
-        status: string;
-        animeId: string;
-        href: string;
-        samehadakuUrl: string;
-        genreList: {
-            title: string;
-            genreId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
-    }[];
-    pagination: Pagination | null;
+    animeList: Anime [] ;
 }
 
 export interface Batch {

@@ -3,6 +3,7 @@ import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import BackgroundImage from '@/components/BackgroundImage';
 
 // Choose Inter for body text and Poppins for headings/navigation
 const inter = Inter({
@@ -27,16 +28,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${poppins.variable} antialiased `}
-      >
+    <html className={`${inter.variable} ${poppins.variable}`} lang="en" suppressHydrationWarning >
+      <body className="antialiased">
+
+<div className="fixed inset-0 -z-10 bg-cover bg-center transition-all duration-500 before:absolute before:inset-0 before:bg-black/40" />
+
+
+
         <ThemeProvider
-          attribute="class"
+        
+          attribute="data-theme"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
+          <BackgroundImage />
           <Navbar />
           {children}
         </ThemeProvider>
