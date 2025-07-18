@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import AnimeCard from './AnimeCard';
+import AnimeCard from '../AnimeCard';
 import type { Recent, Popular, Completed, Ongoing, Pagination, ApiResponse } from '@/types/anime';
 import { getRecentData, getPopularData, getCompletedData, getOngoingData } from '@/lib/services';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -54,7 +54,7 @@ export default function TabbedAnimeSection() {
   };
 
   return (
-    <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-4 backdrop-blur-xl shadow-md">
+    <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/30 rounded-xl p-4 backdrop-blur-xl shadow-md">
       <div className="flex items-center justify-between border-b border-gray-500/30 mb-4">
         {/* Kumpulan Tombol Tab */}
         <div className="flex items-center space-x-2">
@@ -101,21 +101,22 @@ export default function TabbedAnimeSection() {
       </div>
 
       <div>
-        {isLoading ? (
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4 animate-pulse">
-            {/* Skeleton Loading */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="aspect-[2/3] bg-gray-700/50 rounded-md"></div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
-            {data.map((anime: AnimeItem) => (
-              <AnimeCard key={anime.animeId} anime={anime} />
-            ))}
-          </div>
-        )}
-      </div>
+  {isLoading ? (
+    // Jika loading, render beberapa skeleton card
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+      {Array.from({ length: 12 }).map((_, i) => (
+        <AnimeCard key={i} isLoading />
+      ))}
+    </div>
+  ) : (
+    // Jika tidak, render data anime asli
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+      {data.map((anime: AnimeItem) => (
+        <AnimeCard key={anime.animeId} anime={anime} />
+      ))}
+    </div>
+  )}
+</div>
     </section>
   );
 }

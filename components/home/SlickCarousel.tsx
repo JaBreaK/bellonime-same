@@ -2,9 +2,10 @@
 'use client';
 
 import Slider, { type CustomArrowProps } from "react-slick";
-import type { Anime } from '../types/anime';
-import AnimeCard from "./AnimeCard";
+import type { Anime } from '../../types/anime';
+import AnimeCard from "../AnimeCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 // Komponen custom untuk tombol "Panah Berikutnya"
 const NextArrow = ({ onClick }: CustomArrowProps) => {
@@ -31,7 +32,7 @@ const PrevArrow = ({ onClick }: CustomArrowProps) => {
 };
 
 
-export default function SlickCarousel({ animes }: { animes: Anime[] }) {
+export default function SlickCarousel({ animes}: { animes: Anime[], isLoading?: boolean }) {
   const settings = {
     // --- UBAH & TAMBAHKAN BAGIAN INI ---
     className: "center", // Memberi class pada wrapper untuk styling
@@ -58,6 +59,7 @@ export default function SlickCarousel({ animes }: { animes: Anime[] }) {
       { breakpoint: 475, settings: { slidesToShow: 1 } }
     ]
   };
+
 
   return (
     <div className="w-full relative">

@@ -5,9 +5,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type { GenresLink } from '../types/anime';
+import type { GenresLink } from '../../types/anime';
+import GenreScrollerSkeleton from './GenreScrollerSkeleton';
 
-export default function GenreScroller({ genres }: { genres: GenresLink[] }) {
+export default function GenreScroller({ genres, isLoading }: { genres: GenresLink[], isLoading?: boolean }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     containScroll: 'trimSnaps',
@@ -21,6 +22,7 @@ export default function GenreScroller({ genres }: { genres: GenresLink[] }) {
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
+
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setCanScrollPrev(emblaApi.canScrollPrev());
@@ -32,6 +34,11 @@ export default function GenreScroller({ genres }: { genres: GenresLink[] }) {
     onSelect();
     emblaApi.on('select', onSelect).on('reInit', onSelect);
   }, [emblaApi, onSelect]);
+
+  
+  if (isLoading) {
+    return <GenreScrollerSkeleton />;
+  }
 
   return (
     <div className="relative group fade-edges">
@@ -49,7 +56,7 @@ export default function GenreScroller({ genres }: { genres: GenresLink[] }) {
               href={`/genres/${genre.genreId}`}
               key={genre.genreId}
               // Style Tombol Outline
-              className="flex-shrink-0 px-4 py-2 border-2 border-border text-text-dim rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-pink-500 hover:text-white hover:border-pink-500"
+              className="flex-shrink-0 px-4 py-2 border-1 border-border text-text-dim rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-pink-500 hover:text-white hover:border-pink-500"
             >
               {genre.title}
             </Link>

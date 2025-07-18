@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import BackgroundImage from '@/components/BackgroundImage';
 
+
 // Choose Inter for body text and Poppins for headings/navigation
 const inter = Inter({
   subsets: ['latin'],
@@ -33,7 +34,7 @@ export default function RootLayout({
 
 <div className="fixed inset-0 -z-10 bg-cover bg-center transition-all duration-500 before:absolute before:inset-0 before:bg-black/40" />
 
-
+<Navbar />
 
         <ThemeProvider
         
@@ -43,7 +44,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <BackgroundImage />
-          <Navbar />
+
+
+              
+
+
           {children}
         </ThemeProvider>
       </body>

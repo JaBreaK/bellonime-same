@@ -2,7 +2,6 @@
 import { API_BASE_URL } from '@/lib/config';
 import type { ApiResponse, AnimeDetail } from '@/types/anime';
 
-
 export async function getAnimeDetail(animeId: string): Promise<AnimeDetail> {
   const response = await fetch(`${API_BASE_URL}/samehadaku/anime/${animeId}`, {
     next: { revalidate: 3600 },
@@ -13,5 +12,5 @@ export async function getAnimeDetail(animeId: string): Promise<AnimeDetail> {
   }
 
   const result: ApiResponse<AnimeDetail> = await response.json();
-  return result.data;
+  return result.data; // <-- Kembalikan .data nya saja
 }

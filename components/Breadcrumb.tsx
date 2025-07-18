@@ -22,7 +22,7 @@ export default function Breadcrumb({ dynamicRoutes = {} }: BreadcrumbProps) {
   return (
     <nav 
       aria-label="Breadcrumb" 
-      className="container mx-auto mb-2 bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/10 rounded-xl p-3 backdrop-blur-md shadow-sm"
+      className="container mx-auto mb-2 bg-white/10 dark:bg-[#161616]/60 border border-white/20 dark:border-white/30 rounded-xl p-3 backdrop-blur-md shadow-sm"
     >
       <ol className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
         <li>

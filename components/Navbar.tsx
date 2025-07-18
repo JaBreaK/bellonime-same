@@ -29,7 +29,7 @@ const navVariants = {
 };
 
 const itemVariants = {
-  hover: { scale: 1.2, transition: { type: 'spring' as const, stiffness: 200, damping: 25 } },
+  hover: { scale: 1.1, transition: { type: 'spring' as const, stiffness: 300, damping: 20 } },
   tap: { scale: 0.9 },
 };
 
@@ -73,16 +73,25 @@ export default function Navbar() {
         className="relative w-10 h-10 flex items-center justify-center mx-1"
         onClick={() => isMobile && setShowMenu(false)}
       >
-        {/* Shared highlight with layoutId */}
-        {active && (
-          <motion.div
-            layoutId="highlight"
-            className="absolute inset-0 bg-pink-500 rounded-lg"
-          />
-        )}
-        <Link href={item.href} className={active ? 'text-white z-10' : 'text-gray-400 z-10'}>
+        {/* --- PERUBAHAN UTAMA DI SINI --- */}
+        <AnimatePresence>
+          {active && (
+            <motion.div
+              className="absolute inset-0 bg-pink-500 rounded-lg z-0"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            />
+          )}
+        </AnimatePresence>
+        {/* ------------------------------- */}
+        
+        <Link href={item.href} className={`relative z-10 transition-colors ${active ? 'text-white' : 'text-gray-400'}`}>
           {item.icon}
         </Link>
+        
+        {/* Badge tidak diubah */}
         {item.badge && (
           <motion.span
             initial={{ scale: 0 }}
@@ -95,8 +104,8 @@ export default function Navbar() {
       </motion.div>
     );
   };
-
-  // Mobile Bottom Bar
+  
+// Mobile Bottom Bar
   if (isMobile) {
     return (
       <motion.footer

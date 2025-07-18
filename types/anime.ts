@@ -27,6 +27,7 @@ export interface Anime {
     poster: string;
     episodes: string;
     releasedOn: string;
+    releaseDate	: string;
     animeId: string;
     href: string;
     samehadakuUrl: string;
@@ -37,6 +38,13 @@ export interface Anime {
     genres:string [];
     status: string;
 
+}
+
+export interface EpisodeInfo {
+  title: string;
+  episodeId: string;
+  href: string;
+  samehadakuUrl: string;
 }
 
 
@@ -205,7 +213,7 @@ export interface AnimeDetail {
         batchId: string;
         href: string;
         samehadakuUrl: string;
-    } [];
+    }[];
     episodeList: {
         title: string;
         episodeId: string;
@@ -213,7 +221,13 @@ export interface AnimeDetail {
         samehadakuUrl: string;
     }[];
 }
+// types/anime.ts
 
+export interface ServerInfo {
+  title: string;
+  serverId: string;
+  href: string;
+}
 export interface Episode {
     title: string;
     animeId: string;
@@ -252,7 +266,7 @@ export interface Episode {
                 serverId: string;
                 href: string;
             }[];
-        }
+        }[];
     };
     downloadUrl: {
         formats: {
@@ -344,4 +358,24 @@ export interface Batchdetail {
         href: string;
         samehadakuUrl: string;
     }[];
+}
+
+// types/anime.ts
+
+// Tipe untuk satu link download (misal: Gofile, Acefile)
+export interface DownloadUrl {
+  title: string;
+  url: string;
+}
+
+// Tipe untuk satu grup kualitas (misal: 720p)
+export interface DownloadQuality {
+  title: string;
+  urls: DownloadUrl[];
+}
+
+// Tipe untuk satu format (misal: MKV)
+export interface DownloadFormat {
+  title: string;
+  qualities: DownloadQuality[];
 }
