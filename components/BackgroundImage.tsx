@@ -18,8 +18,10 @@ export default function BackgroundImage() {
     <div
       className="fixed inset-0 -z-10 bg-cover bg-center before:absolute before:inset-0 before:bg-black/40 will-change-transform transform-gpu"
       style={{
-        backgroundImage: `url(${backgroundUrl})`,
-      }}
+    // ganti `height: 100vh` implicit menjadi:
+    height: 'calc(var(--vh, 1vh) * 100)',
+    backgroundImage: `url(${backgroundUrl})`,
+  }}
     />
   );
 }

@@ -86,7 +86,7 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
           <SectionWrapper isLoaded={isLoaded}>
             {anime ? (
               
-                <div className="p-6 bg-white/60 dark:bg-black/60 border border-white/20 dark:border-white/10 rounded-xl backdrop-blur-xl shadow-md">
+                <div className="">
                   <h1 className="text-4xl font-bold">{anime.english}</h1>
                   <p className="text-lg text-gray-400">{anime.japanese}</p>
                   {anime.trailer && (
