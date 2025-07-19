@@ -69,7 +69,7 @@ export default function EpisodePlayerSection({ episode }: { episode: Episode }) 
 
   return (
     <section 
-      className="aspect-video w-full bg-black rounded-lg shadow-lg relative"
+      className="aspect-video w-full bg-black border border-white/20 rounded-lg shadow-lg relative"
       // Munculkan menu saat mouse masuk (hanya di desktop)
       onMouseEnter={() => !isMobile && setIsMenuVisible(true)}
       // Sembunyikan menu saat mouse keluar (hanya di desktop)
@@ -96,7 +96,7 @@ export default function EpisodePlayerSection({ episode }: { episode: Episode }) 
       >
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex items-center gap-2 w-full justify-center rounded-md bg-black/50 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white hover:bg-black/70">
+            <Menu.Button className="inline-flex items-center gap-2 w-full justify-center rounded-md border border-white/20 bg-black/50 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white hover:bg-black/70">
               <Clapperboard size={16} />
               <span>{activeServer?.title || 'Pilih Server'}</span>
               <ChevronDown className="h-5 w-5" aria-hidden="true" />
@@ -111,7 +111,7 @@ export default function EpisodePlayerSection({ episode }: { episode: Episode }) 
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 mt-2 w-56 max-h-60 overflow-y-auto origin-top-right divide-y divide-gray-700 rounded-md bg-gray-900/90 backdrop-blur-sm shadow-lg ring-1 ring-black/5 focus:outline-none">
+            <Menu.Items className="absolute right-0 mt-2 border border-white/20 w-56 max-h-60 overflow-y-auto origin-top-right divide-y divide-gray-700 rounded-md bg-gray-900/90 backdrop-blur-sm shadow-lg ring-1 ring-black/5 focus:outline-none">
               <div className="px-1 py-1">
                 {Object.entries(serversByName).map(([serverName, qualities]) => (
                   <div key={serverName} className="px-2 py-2">
