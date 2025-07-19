@@ -86,15 +86,30 @@ export interface GenresLink {
 
 export interface AnimeList {
     list: {
-        startwith: string;
-        animeList: Anime [];
+        startWith: string;
+        animeList: {
+            title:string;
+            animeId:string;
+            href:string;
+            samehadakuUrl:string;
+        }[];
     } [];
 }
 
 export interface Schedule {
     days: {
         day: string;
-        animeList: Anime[];
+        animeList:{
+            title: string;
+            poster: string;
+            type: string;
+            score: string;
+            estimation:string;
+            genres:string;
+            animeId:string;
+            href:string;
+            samehadakuUrl:string;
+        }[];
     }[];
 }
 
@@ -178,6 +193,13 @@ export interface GenresDetail {
     pagination: Pagination | null;
 }
 
+export interface connectionsanime{
+    title: string;
+    animeId:string;
+    href:string;
+    samehadakuUrl:string;
+}
+
 export interface AnimeDetail {
     title: string;
     poster: string;
@@ -200,7 +222,7 @@ export interface AnimeDetail {
     trailer: string;
     synopsis: {
         paragraphs: string;
-        connections: string[];
+        connections: connectionsanime[];
     }
     genreList: {
         title: string;

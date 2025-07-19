@@ -15,7 +15,7 @@ export default function SectionWrapper({
         key={isLoaded ? 'loaded' : 'loading'}
         
       >
-        <section className="bg-white/5 dark:bg-black/40 border border-white/10 dark:border-black/20 rounded-xl p-4 md:p-6 backdrop-blur-xl shadow-lg">
+        <section className="bg-white/5 dark:bg-black/40 border border-white/10 dark:border-white/20 rounded-xl p-4 md:p-6 backdrop-blur-xl shadow-lg">
         {children}
         </section>
       </motion.div>

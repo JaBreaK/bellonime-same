@@ -1,6 +1,10 @@
 /* src/app/globals.css */@import "slick-carousel/slick/slick.css";
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Supaya carousel smooth & overflow hidden */
 .slick-track {
   /* Memberi ruang atas-bawah agar kartu yang membesar tidak kepotong */
@@ -21,4 +25,16 @@
 .slick-center .group {
   transform: scale(1.1); /* Sedikit lebih besar dari normal untuk efek pop-out */
   opacity: 1;
+}
+
+/* ... (kode css kamu yang lain) ... */
+
+/* Tambahkan ini di bagian paling bawah */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
+  scrollbar-width: none; /* Untuk Firefox */
 }

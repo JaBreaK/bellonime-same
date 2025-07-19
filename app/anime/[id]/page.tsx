@@ -26,7 +26,7 @@ function DetailSidebar({ anime }: { anime: AnimeDetail }) {
   ];
 
   return (
-    <aside className="space-y-4 bg-white/10 dark:bg-black/60 border border-white/20 dark:border-white/10 rounded-xl p-2 backdrop-blur-xl shadow-md">
+    <aside className="space-y-4  p-2  shadow-md">
       <div className="relative aspect-[2/3] w-full rounded-lg overflow-hidden shadow-2xl">
         <Image src={anime.poster} alt={`Poster ${anime.english}`} fill className="object-cover" sizes="(max-width: 768px) 100vw, 25vw" />
       </div>
@@ -105,6 +105,22 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
           {/* Sinopsis */}
           <SectionWrapper isLoaded={isLoaded} >
             {anime ? <Synopsis text={anime.synopsis.paragraphs} /> : <SkeletonSynopsis />}
+            {anime?.synopsis?.connections && anime.synopsis.connections.length > 0 ? (
+  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3">
+    {anime.synopsis.connections.slice(0).map((conn) => (
+      <Link
+        key={conn.animeId}
+        href={conn.animeId}
+        className="block p-3 bg-[#161616] rounded-md text-center text-sm font-medium hover:bg-pink-500 hover:text-white transition-colors"
+      >
+        {conn.title}
+      </Link>
+    ))}
+  </div>
+) : (
+  <SkeletonBatch />
+)}
+
           </SectionWrapper>
 
           {/* Download Batch */}

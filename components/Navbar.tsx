@@ -13,6 +13,8 @@ import {
   Star,
   Sun,
   Moon,
+  List,
+  CalendarDays ,
   ChevronRight,
   ChevronLeft,
 } from 'lucide-react';
@@ -53,11 +55,14 @@ export default function Navbar() {
 
   const mainNav = [
     { href: '/', icon: <Home size={18} /> },
+    { href: '/jadwal', icon: <CalendarDays size={18} /> },
+    { href: '/anime', icon: <List size={18} /> },
+
+  ];
+  const extraNav = [
     { href: '/ongoing', icon: <Clapperboard size={18} /> },
     { href: '/completed', icon: <Library size={18} /> },
     { href: '/popular', icon: <Sparkles size={18} /> },
-  ];
-  const extraNav = [
     { href: '/favorites', icon: <Star size={18} /> },
     { href: '/notifications', icon: <Bell size={18} /> },
   ];

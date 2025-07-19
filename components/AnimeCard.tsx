@@ -86,6 +86,19 @@ export default function AnimeCard({ anime, linkTo = 'detail', isLoading }: Anime
             Ep {anime.episodes}
           </div>
         )}
+        {anime.estimation && (
+          <div
+            className="
+              absolute bottom-2.5 left-2.5
+              bg-black/60 backdrop-blur-sm
+              text-white text-xs font-semibold px-2 py-1 rounded-md
+              flex items-center gap-1 z-10
+            "
+          >
+            <span>⏰</span>
+            <span>{anime.estimation}</span>
+          </div>
+        )}
       </div>
 
       {/* Judul */}
@@ -99,10 +112,14 @@ export default function AnimeCard({ anime, linkTo = 'detail', isLoading }: Anime
         {anime.title ?? 'No Title'}
       </h3>
 
+      
+
       {/* Detail Tambahan */}
       <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 space-y-0.5">
         {anime.releasedOn && <p> {anime.releasedOn}</p>}
         {anime.status && <p>{anime.status}</p>}
+        {anime.estimation && <p>{anime.estimation}</p>}
+        
         {/* 'estimation' tidak ada di tipe, gunakan properti lain yang ada */}
         {/* {anime.estimation && <p>Durasi: {anime.estimation}</p>} */}
       </div>
