@@ -47,7 +47,7 @@ export default async function EpisodePage({ params }: { params: { id: string } }
       
       <div className="container mx-auto  grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
         {/* Kolom Kiri: Player & Download */}
-        <div className="space-y-8 bg-white/5 dark:bg-black/40 border border-white/10 dark:border-black/20 rounded-xl p-4 md:p-6 backdrop-blur-xl shadow-lg">
+        <div className="space-y-8 bg-white/5 dark:bg-black/40 border border-white/10 dark:border-white/20 rounded-xl p-4 md:p-6 backdrop-blur-xl shadow-lg">
           {/* Judul & Navigasi */}
           <div>
             <h1 className="text-2xl md:text-3xl font-bold">{episode.title}</h1>

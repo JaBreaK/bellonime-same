@@ -10,7 +10,7 @@ export default function EpisodeListMobile({ episodes }: { episodes: EpisodeInfo[
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="lg:hidden bg-white/5 dark:bg-black/20 p-4 rounded-lg">
+    <div className="lg:hidden bg-white/5 dark:bg-black/20 p-4 dark:border-white/20 rounded-lg">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center text-lg font-semibold"

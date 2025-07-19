@@ -55,7 +55,7 @@ export default function DownloadSection({ formats = [] }: { formats?: DownloadFo
 
 
   return (
-    <section className="bg-gradient-to-br from-gray-800/20 to-gray-900/20 dark:from-black/20 dark:to-gray-900/30 p-4 rounded-xl border border-white/10 shadow-lg">
+    <section className="bg-gradient-to-br from-gray-800/20 to-gray-900/20 dark:from-black/20 dark:to-gray-900/30 p-4 rounded-xl border border-white/20 shadow-lg">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
         <h3 className="flex items-center gap-2 text-lg font-bold">
           <Download size={20} />

@@ -20,7 +20,7 @@ export default function EpisodeSidebar({ episodes }: { episodes: EpisodeInfo[] }
 
   return (
     <aside className="hidden lg:block space-y-4">
-      <div className="p-4 bg-white/5 dark:bg-black/20 rounded-lg border border-white/10">
+      <div className="p-4 bg-white/5 dark:bg-black/20 rounded-lg border border-white/20">
         <div className="flex justify-between items-center mb-4">
           <h3 className="flex items-center gap-2 text-xl font-bold">
             <ListVideo size={24} />
