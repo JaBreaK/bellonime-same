@@ -77,11 +77,11 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
   const isLoaded = Boolean(anime);
 
   return (
-    <main className="min-h-screen py-6 px-2 md:px-4 space-y-8">
+    <main className="min-h-screen py-6 px-2 md:px-4">
       <Breadcrumb dynamicRoutes={{ [params.id]: anime?.title || '' }} />
-      <div className="container mb-2 p-2 px-4 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+      <div className="container   px-4 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
         {/* Konten Utama */}
-        <div className="space-y-6">
+        <div className="space-y-2">
           {/* Header */}
           <SectionWrapper isLoaded={isLoaded}>
             {anime ? (
@@ -121,12 +121,9 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
   <SkeletonBatch />
 )}
 
-          </SectionWrapper>
 
-          {/* Download Batch */}
-          <SectionWrapper isLoaded={isLoaded} >
             {anime && anime.batchList && anime.batchList.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-3 mt-2">
                 {anime.batchList.map(batch => (
                   <Link key={batch.batchId} href={batch.href} className="block p-3 bg-[#161616] rounded-md text-center text-sm font-medium hover:bg-pink-500 hover:text-white transition-colors">
                     {batch.title}

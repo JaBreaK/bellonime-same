@@ -73,7 +73,7 @@ export default function EpisodePlayerSection({ episode }: { episode: Episode }) 
       // Munculkan menu saat mouse masuk (hanya di desktop)
       onMouseEnter={() => !isMobile && setIsMenuVisible(true)}
       // Sembunyikan menu saat mouse keluar (hanya di desktop)
-      onMouseLeave={() => !isMobile && setIsMenuVisible(false)}
+      onMouseLeave={() => !isMobile && setIsMenuVisible(true)}
     >
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">

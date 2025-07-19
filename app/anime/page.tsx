@@ -35,7 +35,7 @@ export default async function DaftarAnimePage() {
   const availableLetters = animeData.list.map((g) => g.startWith);
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="min-h-screen py-6 px-2 md:px-4">
         <Breadcrumb  />
       <section className="bg-white/5 dark:bg-black/80 border border-white/10 dark:border-white/20 rounded-xl p-4 md:p-6 backdrop-blur-xl shadow-lg">
         <h1 className="text-3xl font-extrabold text-center mb-8">
@@ -64,7 +64,7 @@ export default async function DaftarAnimePage() {
                     className="mb-2 break-inside-avoid"
                   >
                     <Link
-                      href={anime.href}
+                      href={`/anime/${anime.animeId}`}
                       className="text-gray-300 hover:text-pink-400 transition-colors"
                     >
                       {anime.title}

@@ -1,8 +1,14 @@
 import { ApiResponse, GenresDetail } from "@/types/anime";
 import { API_BASE_URL } from "@/lib/config";
-// lib/services/GenresDetailService.ts
-export async function getGenresDetailData(genreId: string): Promise<GenresDetail> {
-  const response = await fetch(`${API_BASE_URL}/samehadaku/genres/${genreId}`, {
+
+// Tambahkan 'page?: number' sebagai argumen kedua
+export async function getGenresDetailData(genreId: string, page?: number): Promise<ApiResponse<GenresDetail>> {
+  const url = new URL(`${API_BASE_URL}/samehadaku/genres/${genreId}`);
+  if (page) {
+    url.searchParams.append('page', page.toString());
+  }
+
+  const response = await fetch(url.toString(), {
     next: { revalidate: 3600 },
   });
 
@@ -10,6 +16,5 @@ export async function getGenresDetailData(genreId: string): Promise<GenresDetail
     throw new Error("Gagal mengambil data detail genre");
   }
 
-  const result: ApiResponse<GenresDetail> = await response.json();
-  return result.data;
+  return response.json();
 }

@@ -5,7 +5,7 @@ import type { ApiResponse, Movies } from '@/types/anime';
  * Mengambil data film anime, bisa berdasarkan halaman.
  * @param page Nomor halaman yang ingin diambil (opsional).
  */
-export async function getMoviesData(page?: number): Promise<Movies> {
+export async function getMoviesData(page?: number): Promise<ApiResponse<Movies>> {
   const url = new URL(`${API_BASE_URL}/samehadaku/movies`);
 
   if (page) {
@@ -20,6 +20,5 @@ export async function getMoviesData(page?: number): Promise<Movies> {
     throw new Error('Gagal mengambil data film anime');
   }
 
-  const result: ApiResponse<Movies> = await response.json();
-  return result.data;
+  return response.json();
 }

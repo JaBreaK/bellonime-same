@@ -6,32 +6,24 @@ import { useEffect, useState } from 'react';
 import { motion, LayoutGroup, AnimatePresence } from 'framer-motion';
 import {
   Home,
-  Clapperboard,
-  Library,
-  Sparkles,
-  Bell,
-  Star,
   Sun,
   Moon,
   List,
-  CalendarDays ,
+  Film,
+  CalendarDays,
   ChevronRight,
   ChevronLeft,
+  Tags,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-// Variants
-const navVariants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { staggerChildren: 0.1, when: 'beforeChildren' },
-  },
+// Variants for container width/glow
+const containerVariants = {
+  collapsed: { width: 40 },
+  expanded: { width: 'auto' },
 };
-
 const itemVariants = {
-  hover: { scale: 1.1, transition: { type: 'spring' as const, stiffness: 300, damping: 20 } },
+  hover: {},
   tap: { scale: 0.9 },
 };
 
@@ -54,49 +46,40 @@ export default function Navbar() {
   const isDark = theme === 'dark';
 
   const mainNav = [
-    { href: '/', icon: <Home size={18} /> },
-    { href: '/jadwal', icon: <CalendarDays size={18} /> },
-    { href: '/anime', icon: <List size={18} /> },
+    { href: '/', icon: <Home size={18} />, label: 'Home' },
+    { href: '/jadwal', icon: <CalendarDays size={18} />, label: 'Jadwal' },
+    { href: '/movies', icon: <Film size={18} />, label: 'Movies' },
 
   ];
   const extraNav = [
-    { href: '/ongoing', icon: <Clapperboard size={18} /> },
-    { href: '/completed', icon: <Library size={18} /> },
-    { href: '/popular', icon: <Sparkles size={18} /> },
-    { href: '/favorites', icon: <Star size={18} /> },
-    { href: '/notifications', icon: <Bell size={18} /> },
+    { href: '/genres', icon: <Tags size={18} />, label: 'Genres' },
+        { href: '/anime', icon: <List size={18} />, label: 'Anime' },
   ];
 
-  const renderItem = (item: { href: string; icon: React.ReactNode; badge?: number }) => {
+  const renderItem = (item: { href: string; icon: React.ReactNode; label: string; badge?: number }) => {
     const active = pathname === item.href;
     return (
       <motion.div
         key={item.href}
-        variants={itemVariants}
-        whileHover="hover"
-        whileTap="tap"
-        className="relative w-10 h-10 flex items-center justify-center mx-1"
+        initial="collapsed"
+        animate={active ? 'expanded' : 'collapsed'}
+        whileHover="expanded"
+        variants={containerVariants}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        className={`relative flex items-center h-10 mx-1 group overflow-hidden rounded-lg transition-colors duration-200 
+          ${active ? 'bg-pink-500 text-white px-3' : 'bg-transparent text-gray-400'}
+          ${!active && 'group-hover:bg-gray-700 group-hover:text-gray-100 group-hover:px-3'}`}
         onClick={() => isMobile && setShowMenu(false)}
       >
-        {/* --- PERUBAHAN UTAMA DI SINI --- */}
-        <AnimatePresence>
-          {active && (
-            <motion.div
-              className="absolute inset-0 bg-pink-500 rounded-lg z-0"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            />
-          )}
-        </AnimatePresence>
-        {/* ------------------------------- */}
-        
-        <Link href={item.href} className={`relative z-10 transition-colors ${active ? 'text-white' : 'text-gray-400'}`}>
+        <Link href={item.href} className="relative z-10 flex items-center">
           {item.icon}
+          <span
+            className={`ml-2 whitespace-nowrap overflow-hidden 
+              ${active ? 'block' : 'hidden group-hover:block'}`}
+          >
+            {item.label}
+          </span>
         </Link>
-        
-        {/* Badge tidak diubah */}
         {item.badge && (
           <motion.span
             initial={{ scale: 0 }}
@@ -109,8 +92,8 @@ export default function Navbar() {
       </motion.div>
     );
   };
-  
-// Mobile Bottom Bar
+
+  // Mobile Bottom Bar
   if (isMobile) {
     return (
       <motion.footer
@@ -120,10 +103,9 @@ export default function Navbar() {
       >
         <LayoutGroup>
           <motion.div
-            variants={navVariants}
-            initial={false}
-            animate="visible"
             className="flex items-center bg-[#161616] px-4 py-1 rounded-full shadow-lg"
+            initial=""
+            animate=""
           >
             {mainNav.map(renderItem)}
             <motion.button
@@ -164,7 +146,7 @@ export default function Navbar() {
   return (
     <LayoutGroup>
       <motion.nav
-        variants={navVariants}
+        variants={{}}
         initial={false}
         animate="visible"
         className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center bg-[#161616] px-4 py-1 rounded-full shadow-lg"

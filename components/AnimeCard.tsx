@@ -1,16 +1,20 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Anime } from '../types/anime'; // Gunakan tipe gabungan
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import type { Anime } from '../types/anime';
 
 type LinkType = 'detail' | 'latest-episode';
 
 interface AnimeCardProps {
-  anime?: Partial<Anime>; // Anime bisa undefined saat loading
+  anime?: Partial<Anime>;
   linkTo?: LinkType;
-  isLoading?: boolean; // Prop baru untuk loading
+  isLoading?: boolean;
 }
 
-// Komponen Skeleton terpisah untuk kebersihan kode
+// Komponen Skeleton
 function AnimeCardSkeleton() {
   return (
     <div className="animate-pulse">
@@ -22,12 +26,11 @@ function AnimeCardSkeleton() {
 }
 
 export default function AnimeCard({ anime, linkTo = 'detail', isLoading }: AnimeCardProps) {
-  // Jika isLoading true, tampilkan skeleton
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   if (isLoading) {
     return <AnimeCardSkeleton />;
   }
-
-  // Jika tidak loading tapi tidak ada data, jangan tampilkan apa-apa
   if (!anime?.animeId) {
     return null;
   }
@@ -39,25 +42,15 @@ export default function AnimeCard({ anime, linkTo = 'detail', isLoading }: Anime
 
   return (
     <Link href={href} className="group relative block">
-      <div
-        className="
-          aspect-[2/3] relative overflow-hidden rounded-lg 
-          shadow-lg transition-all duration-300
-          group-hover:shadow-2xl group-hover:shadow-pink-500/20
-        "
+      <motion.div
+        className="aspect-[2/3] relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-pink-500/20"
+        
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        {/* Skor Bintang di pojok kanan atas */}
-        {anime.score && (
-          <div
-            className="
-              absolute top-2.5 right-2.5
-              bg-black/60 backdrop-blur-sm
-              text-yellow-400 text-xs font-bold px-2 py-1 rounded-md flex items-center gap-1 z-10
-            "
-          >
-            <span>⭐</span>
-            <span>{anime.score}</span>
-          </div>
+        {/* Placeholder saat gambar belum termuat */}
+        {!isImageLoaded && (
+          <div className="absolute inset-0 bg-gray-800 animate-pulse"></div>
         )}
 
         {anime.poster ? (
@@ -65,16 +58,18 @@ export default function AnimeCard({ anime, linkTo = 'detail', isLoading }: Anime
             src={anime.poster}
             alt={anime.title ?? 'Anime Poster'}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className={`object-cover transition-all duration-300 group-hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
             quality={85}
+            onLoad={() => setIsImageLoaded(true)} // <-- Set state saat gambar selesai dimuat
           />
         ) : (
           <div className="bg-gray-800 w-full h-full flex items-center justify-center text-white text-sm">
             No Image
           </div>
         )}
-
+        
+        
         {anime.episodes && (
           <div
             className="
@@ -99,7 +94,8 @@ export default function AnimeCard({ anime, linkTo = 'detail', isLoading }: Anime
             <span>{anime.estimation}</span>
           </div>
         )}
-      </div>
+
+      </motion.div>
 
       {/* Judul */}
       <h3

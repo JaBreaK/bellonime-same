@@ -174,23 +174,7 @@ export interface Search {
 }
 
 export interface GenresDetail {
-    animeList: {
-        title: string;
-        poster: string;
-        type: string; 
-        score: string;
-        status: string;
-        animeId: string;
-        href: string;
-        samehadakuUrl: string;
-        genreList: {
-            title: string;
-            genreId: string;
-            href: string;
-            samehadakuUrl: string;
-        }[];
-    }[];
-    pagination: Pagination | null;
+    animeList: Anime[];
 }
 
 export interface connectionsanime{

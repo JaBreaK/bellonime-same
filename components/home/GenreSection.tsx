@@ -13,7 +13,7 @@ export default function GenreSection() {
     const fetchGenres = async () => {
       try {
         const response = await getGenresData();
-        setGenres(response.genreList);
+        setGenres(response.data.genreList);
       } catch (error) {
         console.error('Gagal memuat data genre:', error);
       } finally {

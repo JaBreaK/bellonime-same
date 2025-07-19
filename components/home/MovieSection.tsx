@@ -27,9 +27,9 @@ export default function MovieSection() {
   return (
 <aside className="space-y-4">
           <section className="bg-white/10 dark:bg-black/30 border border-white/20 dark:border-white/30 rounded-xl p-2 backdrop-blur-md shadow-md">
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-3 p-2">
               <h2 className="text-lg sm:text-xl font-semibold text-foreground">Movie</h2>
-              <Link href="/anime/movie" className="text-sm text-primary hover:underline">
+              <Link href="/movies" className="flex-shrink-0 px-4 py-1 border-1 border-border text-text-dim rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-pink-500 hover:text-white hover:border-pink-500">
                 Lihat Semua
               </Link>
             </div>

@@ -3,8 +3,8 @@
 // 👉 1. Impor useRef
 import { useState, useEffect, useRef } from 'react';
 import AnimeCard from '../AnimeCard';
-import type { Recent, Popular, Completed, Ongoing, Pagination, ApiResponse } from '@/types/anime';
-import { getRecentData, getPopularData, getCompletedData, getOngoingData } from '@/lib/services';
+import type { Recent, Popular, Completed, Ongoing, Pagination} from '@/types/anime';
+import { getRecentData, getPopularData, getCompletedData } from '@/lib/services';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
