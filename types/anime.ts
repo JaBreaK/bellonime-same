@@ -66,6 +66,11 @@ export interface Home {
         samehadakuUrl: string;
         animeList: Anime[];
     }
+    top10: {
+        href: string;
+        samehadakuUrl: string;
+        animeList: Anime[];
+    }
 }
 
 export interface Genres {
